@@ -1,43 +1,49 @@
-
-import pyautogui, os, keyboard
+import pyautogui
+import os 
 from time import sleep
 
 from extract import ext
 
-loads_coordinate = [(25, 120), (100, 135), (450, 90), (500, 170), (1895, 15)]
+sleep_big_const = 3
+sleep_small_const = 0.5
 
-def run():
+img_list = ["img/ok.png", "img/cmk.png", "img/reg.png",
+            "img/prnt.png", "img/vgr.png", "img/ext.png",
+            "img/sav.png", "img/path.png", "img/sav1.png",
+            "img/yes.png", "img/ext1.png", "img/file.png", "img/close.png"]
+
+def run_pobeda():
     # запуск exe файла
     os.startfile("C:/OEMZ/Production manager/ProductionManager.exe")
-    sleep(3)
+    sleep(sleep_big_const)
 
-    # авторизация в победе
-    for i in range(3):
-        keyboard.press("enter")
-        sleep(3)
+    for i in range(len(img_list)):
+        buttons = pyautogui.locateAllOnScreen(img_list[i], confidence=0.7)
 
-    # выгрузка excel файла
-    sleep(1)
-    for i in loads_coordinate:
-        pyautogui.click(i)
-        sleep(3)
+        if i == 1:
+            for button in buttons:
+                pyautogui.moveTo(button)
+                sleep(sleep_small_const)
+                pyautogui.doubleClick(button)
+            sleep(sleep_big_const)
 
-    # сохранение файла
-    sleep(4)
-    keyboard.press("ctrl + s")
-    sleep(3)
+        elif i == 5:
+            for button in buttons:
+                pyautogui.moveTo(button)
+                sleep(sleep_small_const + 8)
+                pyautogui.click(button)
+            sleep(sleep_big_const)
 
-    for i in range(4):
-        keyboard.press("enter")
-        sleep(2)
-
-    keyboard.press("left")
-    sleep(1)
-    keyboard.press("enter")
-    sleep(2)
+        elif i != 1 and i != 5:
+            for button in buttons:
+                pyautogui.moveTo(button)
+                sleep(sleep_small_const)
+                pyautogui.click(button)
+            sleep(sleep_big_const)
 
     ext()
 
 
-if __name__ == "__main__":
-    run()
+            
+
+
