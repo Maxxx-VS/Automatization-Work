@@ -2,7 +2,7 @@ from datetime import datetime
 from pobeda import run_pobeda
 from time import sleep
 
-run_time = str(input("Введите время запуска: "))
+run_time = str(input("Введите время запуска: "), "\n")
 
 def run_processing():
     while True:
