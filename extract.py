@@ -45,40 +45,6 @@ def ext():
     df['Центр'] = (df['Центр']).apply(lambda x: str(x).split(' ::')[0])
 
     # вывод результата
-    # print("\n", "* * * * * * * * * НА РУКАХ ССЗ: * * * * * * * * * *", '\n')
-    # for i in list_2:
-    #     df_new = df[df['Центр'] == i]
-    #     count = len(df_new["ССЗ"].unique())
-    #     total_s += count
-    #     print(i, "=>", count, "шт.")
-        
-    # print(f'\nВСЕГО => {round(total_s, 1)} шт.\n')
-
-    
-    # print("* * * * * * * * * ОБЩАЯ МАССА ССЗ: * * * * * * * * * *", "\n")
-    # for i in list_2:
-    #     resalt = round((df.loc[df["Центр"] == i, "Итого"].sum())/1000, 1)
-    #     total_m += resalt
-    #     print(f'{i} => {resalt} тн.')
-
-    # print(f'\nВСЕГО => {round(total_m, 1)} тн.\n')
-
-    
-    # # добавил вывод часов
-    # print("* * * * * * * * * ОБЩАЯ СУММА ЧАСОВ: * * * * * * * * * *", "\n")
-    # for i in list_2:
-    #     resalt_h = round((df.loc[df["Центр"] == i, "Чсов"].sum()), 1)
-    #     total_h += resalt_h
-    #     print(f'{i} => {resalt_h} час.')
-
-    # print(f'\nВСЕГО => {round(total_h, 1)} час.\n')
-
-
-
-
-
-
-
     for i in list_2:
         df_new = df[df['Центр'] == i]
         count_s = len(df_new["ССЗ"].unique())
@@ -87,15 +53,19 @@ def ext():
         count_m = round((df.loc[df["Центр"] == i, "Итого"].sum())/1000, 1)
         total_m += count_m
 
-        count_h = round((df.loc[df["Центр"] == i, "Чсов"].sum()), 1)
+        count_h = round((df.loc[df["Центр"] == i, "Чсов"].sum()))
         total_h += count_h
 
-        my_table.field_names = ["РАБОЧИЙ ЦЕНТР", "КОЛ-ВО ССЗ, шт", "МАССА ССЗ, тн","ЗАГРУЗКА, час"]
+        my_table.field_names = ["РАБОЧИЙ ЦЕНТР", "КОЛ-ВО ССЗ, шт", "МАССА ССЗ, тн", "ЗАГРУЗКА, час"]
         my_table.add_row([i, count_s, count_m, count_h])
+    # my_table.sortby = "МАССА ССЗ, тн"
+    
+    
+    my_table.add_row(['---------------------------', '----------------', '---------------', '---------------'])
+    my_table.add_row(["ИТОГО:", round(total_s, 1), round(total_m), round(total_h)])
 
-    my_table.add_row(["ИТОГО:", round(total_s, 1), round(total_m, 1), round(total_h, 1)])
     print(my_table)
 
-    print(f'Выгрузка: {datetime.now().strftime("%Y-%m-%d :: %H:%M:%S")}')
+    print(f'Выгрузка: {datetime.now().strftime("%Y-%m-%d :: %H:%M:%S")}', '\n')
 
 sleep(2)
